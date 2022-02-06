@@ -156,8 +156,6 @@ for role in roles
     new_role.save
 end
 
-p Role.all.inspect
-
 # Prints a header for the movies output
 puts "Movies"
 puts "======"
@@ -165,6 +163,9 @@ puts ""
 
 # Query the movies data and loop through the results to display the movies output
 # TODO!
+for movies in Movie.all
+    puts "#{movies.title} - #{movies.year_released} - #{movies.rated} - #{movies.person.name}"
+end
 
 # Prints a header for the cast output
 puts ""
@@ -174,3 +175,7 @@ puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie
 # TODO!
+
+for role in Role.all
+    puts "#{role.movie.title} - #{role.person.name} - #{role.character_name}"
+end
