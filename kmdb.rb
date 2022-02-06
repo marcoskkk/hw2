@@ -122,7 +122,41 @@ for movie in movies
     new_movie.save
 end
 
-puts Movie.all.inspect
+roles = [
+    {movie: "Batman Begins", person: "Christian Bale", character_name: "Bruce Wayne"},
+    {movie: "Batman Begins", person: "Michael Caine", character_name: "Alfred"},
+    {movie: "Batman Begins", person: "Liam Neeson", character_name: "Ra's Al Ghul"},
+    {movie: "Batman Begins", person: "Katie Holmes", character_name: "Rachel Dawes"},
+    {movie: "Batman Begins", person: "Gary Oldman", character_name: "Commissioner Gordon"},
+    {movie: "The Dark Knight", person: "Christian Bale", character_name: "Bruce Wayne"},
+    {movie: "The Dark Knight", person: "Heath Ledger", character_name: "Joker"},
+    {movie: "The Dark Knight", person: "Aaron Eckhart", character_name: "Harvey Dent"},
+    {movie: "The Dark Knight", person: "Michael Caine", character_name: "Alfred"},
+    {movie: "The Dark Knight", person: "Maggie Gyllenhaal", character_name: "Rachel Dawes"},
+    {movie: "The Dark Knight Rises", person: "Christian Bale", character_name: "Bruce Wayne"},
+    {movie: "The Dark Knight Rises", person: "Gary Oldman", character_name: "Commissioner Gordon"},
+    {movie: "The Dark Knight Rises", person: "Tom Hardy", character_name: "Bane"},
+    {movie: "The Dark Knight Rises", person: "Joseph Gordon-Levitt", character_name: "John Blake"},
+    {movie: "The Dark Knight Rises", person: "Anne Hathaway", character_name: "Selina Kyle"}
+]
+
+for role in roles
+    new_role = Role.new
+
+    movie = Movie.where({title: role[:movie]})[0]
+    movie_id = movie.id
+    new_role.movie_id = movie_id
+
+    person = Person.where({name: role[:person]})[0]
+    person_id = person.id
+    new_role.person_id = person_id
+    
+    new_role.character_name = role[:character_name]
+
+    new_role.save
+end
+
+p Role.all.inspect
 
 # Prints a header for the movies output
 puts "Movies"
