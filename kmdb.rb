@@ -69,6 +69,9 @@
 # Delete existing data, so you'll start fresh each time this script is run.
 # Use `Model.destroy_all` code.
 # TODO!
+Movie.destroy_all
+Person.destroy_all
+Role.destroy_all
 
 # Generate models and tables, according to the domain model
 # TODO!
@@ -76,6 +79,50 @@
 # Insert data into your database that reflects the sample data shown above
 # Do not use hard-coded foreign key IDs.
 # TODO!
+
+people = [
+    "Christopher Nolan",
+    "Christian Bale",
+    "Michael Caine",
+    "Liam Neeson",
+    "Katie Holmes",
+    "Gary Oldman",
+    "Heath Ledger",
+    "Aaron Eckhart",
+    "Maggie Gyllenhaal",
+    "Tom Hardy",
+    "Joseph Gordon-Levitt",
+    "Anne Hathaway"
+]
+
+for person in people
+    new_person = Person.new
+    new_person.name = person
+    new_person.save
+end
+
+only_director = Person.where({name: "Christopher Nolan"})[0]
+ony_director_id = only_director.id
+
+
+movies = [
+    {title: "Batman Begins", year_released: 2005, rated: "PG-13", director: "Christopher Nolan"},
+    {title: "The Dark Knight", year_released: 2008, rated: "PG-13", director: "Christopher Nolan"},
+    {title: "The Dark Knight Rises", year_released: 2012, rated: "PG-13", director: "Christopher Nolan"}
+]
+
+for movie in movies
+    new_movie = Movie.new
+    new_movie.title = movie[:title]
+    new_movie.year_released = movie[:year_released]
+    new_movie.rated = movie[:rated]
+    director = Person.where({name: movie[:director]})[0]
+    director_id = director.id
+    new_movie.person_id = director_id  
+    new_movie.save
+end
+
+puts Movie.all.inspect
 
 # Prints a header for the movies output
 puts "Movies"
